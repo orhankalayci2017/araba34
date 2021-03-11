@@ -28,6 +28,11 @@ jobs:
           echo "kaport" >> araba.txt
           echo "motor" >> araba.txt
           echo "tekerlekler" >> araba.txt
+      - name: araba.txt i diger job a taşımak
+        uses: actions/upload-artifact@v2
+        with:
+          name: araba.txt
+          path: ./
           
   job2-arabayi-test-et:
     needs: job1-arabayi-build-et
@@ -36,6 +41,12 @@ jobs:
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       # Runs a set of commands using the runners shell
+      
+      - name: araba.txt i diger job dan bu job a taşımak (download etmek)
+        uses: actions/download-artifact@v2
+        with:
+          name: araba.txt
+          
       - name: Run a multi-line script
         run: |
           grep "kaport" araba.txt
